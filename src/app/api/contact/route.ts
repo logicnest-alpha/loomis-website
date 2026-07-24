@@ -20,7 +20,49 @@ export async function POST(request: Request) {
       timestamp: new Date().toISOString(),
     });
 
-    // Check if RESEND_API_KEY environment variable is set
+    const integrationResults: { makeCom?: string | boolean; resend?: string | boolean } = {};
+
+    // 1. Send data to Make.com Webhook (if MAKE_WEBHOOK_URL is configured)
+    const makeWebhookUrl = process.env.MAKE_WEBHOOK_URL;
+    if (makeWebhookUrl) {
+      try {
+        const makePayload = {
+          name: name || "",
+          email: email || "",
+          company: company || "",
+          phone: phone || "",
+          selectedGoal: selectedGoal || "",
+          selectedDate: selectedDate || "",
+          selectedTime: selectedTime || "",
+          formType: formType || "30-Min Strategy Call Booking",
+          submittedAt: new Date().toISOString(),
+          source: "LOOMIS AI Website",
+        };
+
+        const makeResponse = await fetch(makeWebhookUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(makePayload),
+        });
+
+        if (makeResponse.ok) {
+          console.log("✅ Successfully sent data to Make.com Webhook");
+          integrationResults.makeCom = true;
+        } else {
+          console.warn(`⚠️ Make.com Webhook returned status code: ${makeResponse.status}`);
+          integrationResults.makeCom = `Status ${makeResponse.status}`;
+        }
+      } catch (makeError: any) {
+        console.error("❌ Make.com Webhook error:", makeError);
+        integrationResults.makeCom = makeError.message || "Webhook request failed";
+      }
+    } else {
+      console.log("ℹ️ MAKE_WEBHOOK_URL is not set in environment variables.");
+    }
+
+    // 2. Resend Email Notification (if RESEND_API_KEY environment variable is set)
     const apiKey = process.env.RESEND_API_KEY;
 
     if (apiKey) {
@@ -71,17 +113,27 @@ export async function POST(request: Request) {
         </div>
       `;
 
-      await resend.emails.send({
-        from: "LOOMIS AI Leads <onboarding@resend.dev>",
-        to: DESTINATION_EMAIL,
-        subject: `🔥 New Lead: ${name || email} — ${selectedGoal || "Strategy Call"}`,
-        html: htmlContent,
-      });
+      try {
+        await resend.emails.send({
+          from: "LOOMIS AI Leads <onboarding@resend.dev>",
+          to: DESTINATION_EMAIL,
+          subject: `🔥 New Lead: ${name || email} — ${selectedGoal || "Strategy Call"}`,
+          html: htmlContent,
+        });
+        integrationResults.resend = true;
+      } catch (resendErr: any) {
+        console.error("❌ Resend email error:", resendErr);
+        integrationResults.resend = resendErr.message || "Failed to send email via Resend";
+      }
     }
 
     return NextResponse.json({
       success: true,
-      message: `Lead details successfully processed and routed to ${DESTINATION_EMAIL}`,
+      message: "Lead details successfully processed and routed.",
+      integrations: {
+        makeCom: makeWebhookUrl ? (integrationResults.makeCom === true ? "sent" : integrationResults.makeCom) : "not_configured",
+        resend: apiKey ? (integrationResults.resend === true ? "sent" : integrationResults.resend) : "not_configured",
+      },
     });
   } catch (error: any) {
     console.error("❌ Lead processing error:", error);
