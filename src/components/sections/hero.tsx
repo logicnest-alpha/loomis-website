@@ -349,7 +349,7 @@ export function Hero() {
         onClose={() => setIsDemoModalOpen(false)}
       />
 
-      {/* Video Modal Placeholder */}
+      {/* Video Modal */}
       <AnimatePresence>
         {isVideoOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -364,30 +364,46 @@ export function Hero() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-4xl rounded-3xl border border-white/20 bg-neutral-950 p-6 shadow-2xl z-10 overflow-hidden"
+              className="relative w-full max-w-5xl rounded-3xl border border-white/20 bg-neutral-950 p-4 md:p-6 shadow-2xl z-10 overflow-hidden"
             >
               <button
                 onClick={() => setIsVideoOpen(false)}
-                className="absolute top-4 right-4 text-white/60 hover:text-white p-2 rounded-xl bg-white/10"
+                aria-label="Close modal"
+                className="absolute top-4 right-4 z-20 text-white/70 hover:text-white p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 hover:bg-white/20 transition-all"
               >
                 <X className="h-6 w-6" />
               </button>
-              <div className="aspect-video w-full rounded-2xl bg-neutral-900 border border-white/10 flex flex-col items-center justify-center text-center p-8 space-y-4">
-                <div className="h-16 w-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
-                  <Play className="h-8 w-8 fill-current ml-1" />
+
+              <div className="relative aspect-video w-full rounded-2xl bg-black overflow-hidden border border-white/10 shadow-2xl">
+                <video
+                  src="/videos/loomis_reviews_website_hero.mp4"
+                  controls
+                  autoPlay
+                  playsInline
+                  className="w-full h-full object-contain rounded-2xl"
+                />
+              </div>
+
+              <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
+                <div>
+                  <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                    Loomis Reviews Platform Demo Walkthrough
+                    <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                      HD Demo
+                    </span>
+                  </h3>
+                  <p className="text-xs text-white/60 mt-1">
+                    Discover how Loomis Reviews connects POS to automated WhatsApp follow-ups, shields negative reviews, and drives repeat dining.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white">Loomis Reviews Platform Demo Walkthrough</h3>
-                <p className="text-xs text-white/60 max-w-md">
-                  Discover how Loomis Reviews connects your POS to WhatsApp follow-ups, shields negative reviews, and drives repeat visits automatically.
-                </p>
                 <Button
                   onClick={() => {
                     setIsVideoOpen(false);
                     setIsDemoModalOpen(true);
                   }}
-                  className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-xs h-11 px-6 rounded-xl"
+                  className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-xs h-11 px-6 rounded-xl shrink-0 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
                 >
-                  Book Interactive 1-on-1 Demo Instead
+                  Book 1-on-1 Demo
                 </Button>
               </div>
             </motion.div>
