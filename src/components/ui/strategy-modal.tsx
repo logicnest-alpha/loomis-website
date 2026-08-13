@@ -10,20 +10,20 @@ interface StrategyModalProps {
   onClose: () => void;
 }
 
-const availableTimes = ["09:00 AM", "11:30 AM", "02:00 PM", "04:30 PM"];
-const automationGoals = [
-  "Sales & Lead Qualification",
-  "Customer Support & WhatsApp Bot",
-  "CRM Data Sync & Enrichment",
-  "24/7 Voice AI Receptionist",
-  "Custom AI Workflow Engineering",
+const availableTimes = ["10:00 AM", "01:30 PM", "04:00 PM", "06:30 PM"];
+const businessTypes = [
+  "Dine-in Restaurant / Bistro",
+  "Multi-Location Restaurant Chain",
+  "Cafe / Coffee Shop / Bakery",
+  "Fast Food / QSR Brand",
+  "Cloud Kitchen / Delivery Hub",
 ];
 
 export function StrategyModal({ isOpen, onClose }: StrategyModalProps) {
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [selectedGoal, setSelectedGoal] = useState<string>(automationGoals[0]);
+  const [selectedGoal, setSelectedGoal] = useState<string>(businessTypes[0]);
   const [selectedDate, setSelectedDate] = useState<string>("Tomorrow");
-  const [selectedTime, setSelectedTime] = useState<string>("11:30 AM");
+  const [selectedTime, setSelectedTime] = useState<string>("01:30 PM");
   const [formData, setFormData] = useState({ name: "", email: "", company: "", phone: "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -41,7 +41,7 @@ export function StrategyModal({ isOpen, onClose }: StrategyModalProps) {
           selectedGoal,
           selectedDate,
           selectedTime,
-          formType: "30-Minute AI Strategy Call Booking",
+          formType: "Loomis Reviews 1-on-1 Product Demo & Trial",
         }),
       });
     } catch (err) {
@@ -95,46 +95,46 @@ export function StrategyModal({ isOpen, onClose }: StrategyModalProps) {
             <div>
               {/* Header */}
               <div className="mb-6">
-                <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 border border-accent/30 px-3.5 py-1 text-xs font-bold text-accent-light mb-3">
+                <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-3.5 py-1 text-xs font-bold text-emerald-400 mb-3">
                   <Sparkles className="h-3.5 w-3.5" />
-                  30-Minute AI Blueprint Session
+                  15-Minute VIP Restaurant Demo
                 </div>
                 <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
-                  Schedule Your Strategy Call
+                  Book Your Loomis Demo
                 </h2>
                 <p className="text-xs text-white/60 mt-1">
-                  Step {step} of 2 — Free architecture audit & AI automation roadmap.
+                  Step {step} of 2 — See how to automate Google reviews & repeat visits.
                 </p>
               </div>
 
               {/* Progress Bar */}
               <div className="w-full bg-white/10 h-1.5 rounded-full mb-6 overflow-hidden">
                 <div
-                  className="bg-accent-light h-full transition-all duration-300"
+                  className="bg-emerald-400 h-full transition-all duration-300"
                   style={{ width: step === 1 ? "50%" : "100%" }}
                 />
               </div>
 
               {step === 1 ? (
                 <div className="space-y-5">
-                  {/* Select Goal */}
+                  {/* Select Business Type */}
                   <div>
                     <label className="text-xs font-bold text-white uppercase tracking-wider block mb-2">
-                      Primary Automation Goal
+                      Select Your Restaurant / Venue Type
                     </label>
                     <div className="grid grid-cols-1 gap-2">
-                      {automationGoals.map((goal) => (
+                      {businessTypes.map((bType) => (
                         <button
-                          key={goal}
-                          onClick={() => setSelectedGoal(goal)}
+                          key={bType}
+                          onClick={() => setSelectedGoal(bType)}
                           className={`flex items-center justify-between p-3.5 rounded-2xl border text-xs font-bold transition-all text-left ${
-                            selectedGoal === goal
-                              ? "border-accent bg-accent/20 text-white shadow-lg shadow-accent/20"
+                            selectedGoal === bType
+                              ? "border-emerald-500 bg-emerald-500/20 text-white shadow-lg shadow-emerald-500/20"
                               : "border-white/10 bg-white/[0.03] text-white/70 hover:text-white hover:border-white/25"
                           }`}
                         >
-                          <span>{goal}</span>
-                          {selectedGoal === goal && <CheckCircle2 className="h-4 w-4 text-accent-light" />}
+                          <span>{bType}</span>
+                          {selectedGoal === bType && <CheckCircle2 className="h-4 w-4 text-emerald-400" />}
                         </button>
                       ))}
                     </div>

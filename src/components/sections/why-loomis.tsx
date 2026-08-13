@@ -1,187 +1,145 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, X, Zap, Shield, TrendingUp, HeadphonesIcon, Sparkles } from "lucide-react";
-import { SectionHeader } from "@/components/ui/section-header";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
-import { GlowCard } from "@/components/ui/glow-card";
-import { fadeUp, staggerContainer } from "@/lib/animations";
+import {
+  Clock,
+  MessageCircle,
+  Wand2,
+  LayoutDashboard,
+  Cpu,
+  BadgeDollarSign,
+  Heart,
+  Check,
+} from "lucide-react";
+import { fadeUp } from "@/lib/animations";
 
-const comparisonData = [
-  { feature: "Time-to-Production Deployment", loomis: "2–3 Weeks", agency: "3–6 Months", inhouse: "6–12 Months" },
-  { feature: "Custom LLM & Agent Engineering", loomis: "Full Custom RAG", agency: "No-Code Templates", inhouse: "High Dev Overheads" },
-  { feature: "24/7 Voice & WhatsApp Autonomous Bots", loomis: "Included Native", agency: "Fragmented Add-ons", inhouse: "Complex Sockets" },
-  { feature: "Direct Revenue & Time ROI Tracking", loomis: "Live Dashboard", agency: "Vague Reports", inhouse: "Manual Logs" },
-  { feature: "Guaranteed SLA & Uptime Maintenance", loomis: "99.99% SLA", agency: "No Guarantee", inhouse: "Internal On-Call" },
-  { feature: "Total Cost of Ownership (TCO)", loomis: "80% Lower TCO", agency: "High Monthly Retainer", inhouse: "$250k+/yr Salary" },
-];
-
-const reasons = [
+const loveCards = [
   {
-    icon: Zap,
-    title: "Deploy Production Systems in Weeks",
+    icon: Clock,
+    title: "5-Minute Easy Setup",
     description:
-      "Our battle-tested agent framework gets your AI systems live fast. Most clients see their first multi-agent workflow operating within 14–21 days.",
-    stat: 3,
-    statPrefix: "2–",
-    statSuffix: " weeks",
-    statLabel: "Average deployment time",
+      "No complex software installations or POS code changes. Connect your WhatsApp business account and start collecting 5-star reviews today.",
+    tag: "Plug & Play",
   },
   {
-    icon: Shield,
-    title: "100% Custom Engineering — No Generic Wrappers",
+    icon: MessageCircle,
+    title: "WhatsApp First Engine",
     description:
-      "Every architecture is custom designed around your specific database schemas, API protocols, and security requirements.",
-    stat: 100,
-    statSuffix: "%",
-    statLabel: "Custom built enterprise code",
+      "Your customers already use WhatsApp every day. Zero app downloads required—diners respond instantly in their favorite chat app.",
+    tag: "98% Reach",
   },
   {
-    icon: TrendingUp,
-    title: "Empirically Verified ROI from Day 1",
+    icon: Wand2,
+    title: "No Technical Knowledge Needed",
     description:
-      "We track exact metric telemetry: hours reclaimed, lead conversion lift, and deflected support tickets visible live on your executive dashboard.",
-    stat: 3.4,
-    statSuffix: "x",
-    statLabel: "Average measured return on investment",
+      "Designed for busy restaurant managers, floor staff, and kitchen operators. If you know how to use WhatsApp, you can use Loomis.",
+    tag: "Zero Tech Friction",
   },
   {
-    icon: HeadphonesIcon,
-    title: "Continuous Optimization & SOC2 Standards",
+    icon: LayoutDashboard,
+    title: "Simple & Clean Dashboard",
     description:
-      "Your systems learn continuously. We monitor, fine-tune model prompt weights, and maintain security protocols as your company scales.",
-    stat: 98,
-    statSuffix: "%",
-    statLabel: "Annual client retention rate",
+      "Clutter-free reporting. See review velocity, customer ratings, coupon redemptions, and staff performance at a single glance.",
+    tag: "Clear Insights",
+  },
+  {
+    icon: Cpu,
+    title: "Runs 100% Automatically",
+    description:
+      "Set up your follow-up timers once. Loomis triggers messages, collects reviews, and delivers coupons automatically 24/7/365.",
+    tag: "Hands-Free",
+  },
+  {
+    icon: BadgeDollarSign,
+    title: "100% ROI Focused",
+    description:
+      "We track exact dollar metrics: every coupon redeemed at POS and every Google review generated is linked directly to your bottom line.",
+    tag: "High LTV Lift",
   },
 ];
 
 export function WhyLoomis() {
-  const [activeTab, setActiveTab] = useState<"features" | "comparison">("comparison");
-
   return (
-    <section id="about" className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 mesh-gradient opacity-50 pointer-events-none" />
+    <section id="about" className="relative section-padding overflow-hidden bg-background">
+      {/* Subtle Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-accent/10 rounded-full blur-[200px] pointer-events-none" />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionHeader
-          label="Competitive Advantage & ROI"
-          title="Built for founders and operators who demand results, not demos"
-          description="We are AI systems engineers and strategists. Compare how LOOMIS autonomous architecture stacked up against legacy options."
-        />
-
-        {/* View Switcher: Differentiators vs Interactive Matrix */}
-        <div className="flex justify-center mb-10">
-          <div className="bg-white/[0.04] border border-white/10 p-1 rounded-xl flex gap-1">
-            <button
-              onClick={() => setActiveTab("comparison")}
-              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-                activeTab === "comparison"
-                  ? "bg-accent text-white shadow-md shadow-accent/25"
-                  : "text-white/50 hover:text-white"
-              }`}
-            >
-              Interactive Competitive Matrix 📊
-            </button>
-            <button
-              onClick={() => setActiveTab("features")}
-              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-                activeTab === "features"
-                  ? "bg-accent text-white shadow-md shadow-accent/25"
-                  : "text-white/50 hover:text-white"
-              }`}
-            >
-              Core Differentiators
-            </button>
-          </div>
-        </div>
-
-        {activeTab === "comparison" ? (
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="rounded-2xl border border-white/15 bg-white/[0.02] backdrop-blur-xl p-6 md:p-8 shadow-2xl overflow-x-auto"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-xs font-bold text-rose-400 mb-4"
           >
-            <div className="flex items-center gap-2 mb-6">
-              <Sparkles className="h-4 w-4 text-accent-light" />
-              <h3 className="text-base font-bold text-white uppercase tracking-wider">
-                LOOMIS vs Traditional Agencies vs In-House Engineering
-              </h3>
-            </div>
-
-            <table className="w-full text-left border-collapse min-w-[600px]">
-              <thead>
-                <tr className="border-b border-white/10 text-xs font-semibold text-white/50">
-                  <th className="py-4 px-4">Evaluation Criteria</th>
-                  <th className="py-4 px-4 text-accent-light bg-accent/15 rounded-t-xl font-bold">
-                    ⚡ LOOMIS AI Systems
-                  </th>
-                  <th className="py-4 px-4 text-white/60">Legacy Agencies</th>
-                  <th className="py-4 px-4 text-white/60">In-House Dev Team</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/[0.06] text-xs">
-                {comparisonData.map((row, idx) => (
-                  <tr key={row.feature} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="py-4 px-4 font-semibold text-white/90">{row.feature}</td>
-                    <td className="py-4 px-4 font-bold text-accent-light bg-accent/10 border-x border-accent/20">
-                      <div className="flex items-center gap-1.5">
-                        <Check className="h-4 w-4 text-emerald-400 shrink-0" />
-                        <span>{row.loomis}</span>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4 text-white/50">{row.agency}</td>
-                    <td className="py-4 px-4 text-white/50">{row.inhouse}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <Heart className="h-3.5 w-3.5 fill-current" />
+            Built Specifically for Hospitality
           </motion.div>
-        ) : (
-          <motion.div
-            variants={staggerContainer}
+
+          <motion.h2
+            custom={0}
+            variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-5"
+            viewport={{ once: true }}
+            className="text-3xl md:text-5xl font-extrabold tracking-tight text-white"
           >
-            {reasons.map((reason, i) => (
-              <motion.div key={reason.title} custom={i} variants={fadeUp}>
-                <GlowCard className="h-full">
-                  <div className="p-6 md:p-7">
-                    <div className="flex items-start gap-5">
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/15 border border-accent/30">
-                        <reason.icon className="h-5 w-5 text-accent-light" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-bold text-white tracking-tight">
-                          {reason.title}
-                        </h3>
-                        <p className="mt-2 text-xs text-white/50 leading-relaxed">
-                          {reason.description}
-                        </p>
-                        <div className="mt-4 flex items-baseline gap-2 pt-3 border-t border-white/[0.06]">
-                          <span className="text-2xl font-bold text-accent-light font-mono">
-                            {reason.statPrefix}
-                            <AnimatedCounter
-                              value={reason.stat}
-                              suffix={reason.statSuffix}
-                            />
-                          </span>
-                          <span className="text-[11px] text-white/40 font-medium">
-                            {reason.statLabel}
-                          </span>
-                        </div>
-                      </div>
+            Why Restaurant Owners <span className="gradient-text">Love Loomis Reviews</span>
+          </motion.h2>
+
+          <motion.p
+            custom={1}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mt-4 text-base md:text-lg text-white/60 font-light leading-relaxed"
+          >
+            Built from the ground up to solve real restaurant pain points without adding operational overhead for your staff.
+          </motion.p>
+        </div>
+
+        {/* 6 Love Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {loveCards.map((card, idx) => {
+            const Icon = card.icon;
+            return (
+              <motion.div
+                key={card.title}
+                custom={idx}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="group relative p-7 rounded-3xl bg-white/[0.025] border border-white/10 hover:border-emerald-500/40 transition-all duration-300 backdrop-blur-xl shadow-xl hover:shadow-2xl flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                      <Icon className="h-6 w-6" />
                     </div>
+                    <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-500/20">
+                      {card.tag}
+                    </span>
                   </div>
-                </GlowCard>
+
+                  <h3 className="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors">
+                    {card.title}
+                  </h3>
+
+                  <p className="mt-3 text-xs md:text-sm text-white/60 font-light leading-relaxed">
+                    {card.description}
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center gap-2 text-xs font-semibold text-emerald-400">
+                  <Check className="h-4 w-4" /> Guaranteed Ease of Use
+                </div>
               </motion.div>
-            ))}
-          </motion.div>
-        )}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

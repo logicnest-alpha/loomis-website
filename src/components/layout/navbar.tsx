@@ -10,11 +10,12 @@ import { StrategyModal } from "@/components/ui/strategy-modal";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "Why LOOMIS", href: "#about" },
-  { label: "Methodology", href: "#process" },
-  { label: "Case Studies", href: "#case-studies" },
+  { label: "Problem", href: "#problem" },
+  { label: "Solution", href: "#solution" },
+  { label: "Features", href: "#features" },
+  { label: "Showcase", href: "#showcase" },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
 ];
 
@@ -43,7 +44,7 @@ export function Navbar() {
         aria-hidden="true"
       >
         <motion.div
-          className="h-full bg-gradient-to-r from-accent via-cyan-400 to-accent-light origin-left shadow-[0_0_12px_rgba(124,58,237,0.8)]"
+          className="h-full bg-gradient-to-r from-emerald-500 via-accent to-emerald-400 origin-left shadow-[0_0_12px_rgba(16,185,129,0.8)]"
           style={{ scaleX: scrollYProgress }}
         />
       </div>
@@ -58,7 +59,7 @@ export function Navbar() {
           className={cn(
             "mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-6 rounded-2xl transition-all duration-500",
             scrolled
-              ? "bg-background/80 backdrop-blur-2xl backdrop-saturate-180 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+              ? "bg-background/85 backdrop-blur-2xl backdrop-saturate-180 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
               : "bg-transparent border border-transparent"
           )}
         >
@@ -67,37 +68,35 @@ export function Navbar() {
           </Link>
 
           {/* Nav Links */}
-          <div className="hidden lg:flex items-center gap-1 bg-white/[0.03] border border-white/[0.06] rounded-full px-4 py-1.5 backdrop-blur-md">
+          <div className="hidden lg:flex items-center gap-1 bg-white/[0.03] border border-white/[0.08] rounded-full px-4 py-1.5 backdrop-blur-md">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative px-3.5 py-1 text-[13px] font-medium text-white/60 hover:text-white transition-colors duration-300 group"
+                className="relative px-3.5 py-1 text-[13px] font-medium text-white/70 hover:text-white transition-colors duration-300 group"
               >
                 {link.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-px bg-accent-light group-hover:w-3/4 transition-all duration-300" />
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-px bg-emerald-400 group-hover:w-3/4 transition-all duration-300" />
               </Link>
             ))}
           </div>
 
           {/* Right Action buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            {/* Live Uptime Pill */}
-            <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-medium text-emerald-400">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-              </span>
-              <span>Systems Live (99.99%)</span>
-            </div>
+            <button
+              onClick={() => setIsStrategyModalOpen(true)}
+              className="text-xs font-semibold text-white/80 hover:text-white px-3.5 py-2 transition-colors"
+            >
+              Log In
+            </button>
 
             <Button
               onClick={() => setIsStrategyModalOpen(true)}
               size="default"
-              className="bg-accent hover:bg-accent-light text-white font-medium text-xs rounded-xl h-10 px-5 gap-2 shadow-lg shadow-accent/25 group/btn"
+              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold text-xs rounded-xl h-10 px-5 gap-2 shadow-lg shadow-emerald-500/25 group/btn"
             >
-              <Sparkles className="h-3.5 w-3.5" />
-              Book Strategy Call
+              <Sparkles className="h-3.5 w-3.5 text-emerald-200" />
+              Book Demo
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5" />
             </Button>
           </div>
@@ -146,9 +145,9 @@ export function Navbar() {
                       setMobileOpen(false);
                       setIsStrategyModalOpen(true);
                     }}
-                    className="mt-4 w-full bg-accent hover:bg-accent-light text-white font-medium text-sm h-12"
+                    className="mt-4 w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 text-white font-bold text-sm h-12"
                   >
-                    Book Strategy Call
+                    Book Demo
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </Button>
                 </div>

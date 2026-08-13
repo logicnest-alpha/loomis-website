@@ -1,132 +1,158 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Quote, Star, ShieldCheck, Sparkles, Play } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { StrategyModal } from "@/components/ui/strategy-modal";
-import { fadeUp, staggerContainer } from "@/lib/animations";
+import { Star, Quote, Award, CheckCircle2 } from "lucide-react";
+import { fadeUp } from "@/lib/animations";
 
 const testimonials = [
   {
     quote:
-      "LOOMIS completely transformed our revenue ops. Our lead response time dropped from 4 hours to 28 seconds, and our conversion rate tripled within the first 30 days. It is the highest-ROI investment we've ever made.",
-    name: "Sarah Chen",
-    role: "Chief Executive Officer",
-    company: "Meridian Real Estate Group",
-    initials: "SC",
-    verified: "Verified Enterprise Client",
-    metric: "+340% Conversion Lift",
+      "Loomis Reviews jumped our Google Maps rating from 4.1 to 4.9 stars within 30 days. We went from getting 5 reviews a month to over 120 verified 5-star reviews!",
+    name: "Marco Rossi",
+    role: "Owner & General Manager",
+    restaurant: "Bella Italia Bistro (Austin, TX)",
+    avatar: "👨‍🍳",
+    rating: 5,
+    highlight: "+115 5-Star Reviews in 30 Days",
   },
   {
     quote:
-      "We were skeptical about AI automation agencies, but LOOMIS operates like an elite Silicon Valley engineering team. They didn't just build a bot — they integrated deep RAG vector memory directly into our CRM.",
-    name: "Marcus Williams",
-    role: "Chief Operating Officer",
-    company: "Atlas E-Commerce",
-    initials: "MW",
-    verified: "Verified Enterprise Client",
-    metric: "$420K Saved Annually",
+      "The WhatsApp loyalty coupon engine is insane. Over 40% of customers redeem their 15% discount coupon within 10 days. It practically doubled our repeat diner frequency.",
+    name: "Samantha Lin",
+    role: "Co-Founder",
+    restaurant: "Matcha & Co. Cafe (4 Outlets)",
+    avatar: "🍵",
+    rating: 5,
+    highlight: "42% Coupon Redemption Rate",
   },
   {
     quote:
-      "The ROI clarity was undeniable within 2 weeks. Our customer support team went from drowning in 1,200 tickets a day to focusing exclusively on complex Enterprise accounts while AI resolved 85% of routine queries.",
-    name: "Elena Rodriguez",
-    role: "VP of Global Operations",
-    company: "Nova Health Systems",
-    initials: "ER",
-    verified: "Verified Enterprise Client",
-    metric: "85% Ticket Deflection",
+      "Private feedback shielding saved our reputation. When a customer was unhappy about a delayed steak, the system caught it privately so we could fix it before they posted on Google.",
+    name: "Chef David Vance",
+    role: "Head Chef & Operator",
+    restaurant: "Prime Steak & Lounge (Chicago, IL)",
+    avatar: "🥩",
+    rating: 5,
+    highlight: "Zero Negative Google Reviews",
+  },
+  {
+    quote:
+      "Setup took literally 5 minutes. No staff training required. When bills are settled, WhatsApp messages fire off automatically. Best ROI software we bought this year.",
+    name: "Anish Patel",
+    role: "Franchise Owner",
+    restaurant: "Curry Crave Kitchens (6 Locations)",
+    avatar: "🥘",
+    rating: 5,
+    highlight: "5-Minute Zero Tech Setup",
+  },
+  {
+    quote:
+      "Our delivery customers used to be completely invisible to us. Now, Loomis captures phone numbers automatically and turns cloud kitchen orders into loyal repeat buyers.",
+    name: "Elena Rostova",
+    role: "Operations Director",
+    restaurant: "Bao & Noodle Cloud Hub (Seattle, WA)",
+    avatar: "🥟",
+    rating: 5,
+    highlight: "+68% Cloud Kitchen Repeat LTV",
+  },
+  {
+    quote:
+      "We've tried SMS apps and email newsletters before—nobody opened them. WhatsApp messages get opened in seconds. Loomis is a must-have for every restaurant.",
+    name: "James Henderson",
+    role: "Managing Director",
+    restaurant: "The Craft Burger Bar (Denver, CO)",
+    avatar: "🍔",
+    rating: 5,
+    highlight: "98% WhatsApp Open Rate",
   },
 ];
 
 export function Testimonials() {
-  const [isStrategyModalOpen, setIsStrategyModalOpen] = useState(false);
-
   return (
-    <>
-      <section className="py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(124,58,237,0.06)_0%,_transparent_50%)] pointer-events-none" />
+    <section id="testimonials" className="relative section-padding overflow-hidden bg-background">
+      {/* Glow Orbs */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-emerald-500/10 rounded-full blur-[220px] pointer-events-none" />
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold text-emerald-400 mb-4"
+          >
+            <Award className="h-3.5 w-3.5" />
+            Loved by 500+ Restaurant Owners
+          </motion.div>
+
+          <motion.h2
+            custom={0}
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="text-center max-w-2xl mx-auto mb-16"
+            viewport={{ once: true }}
+            className="text-3xl md:text-5xl font-extrabold tracking-tight text-white"
           >
-            <div className="inline-flex items-center gap-1 text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full text-xs font-semibold mb-4">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <span className="ml-1 text-white font-mono">5.0 / 5.0 Rating Across 40+ Deployments</span>
-            </div>
+            Trusted by Top Restaurants, Cafes & <span className="gradient-text-whatsapp">Chains</span>
+          </motion.h2>
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white">
-              Trusted by operators scaling with AI
-            </h2>
-            <p className="mt-4 text-base text-white/50 leading-relaxed">
-              Hear directly from founders and executives who automated manual ops and compound revenue with LOOMIS.
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
+          <motion.p
+            custom={1}
+            variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            viewport={{ once: true }}
+            className="mt-4 text-base md:text-lg text-white/60 font-light leading-relaxed"
           >
-            {testimonials.map((testimonial, i) => (
-              <motion.div
-                key={testimonial.name}
-                custom={i}
-                variants={fadeUp}
-                className="relative rounded-2xl border border-white/10 bg-white/[0.02] p-7 md:p-8 hover:border-accent/40 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <Quote className="h-8 w-8 text-accent/40" />
-                    <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full flex items-center gap-1">
-                      <ShieldCheck className="h-3 w-3" /> {testimonial.verified}
-                    </span>
+            See how restaurant operators use Loomis Reviews to automate 5-star Google reviews and drive repeat customer visits.
+          </motion.p>
+        </div>
+
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {testimonials.map((t, idx) => (
+            <motion.div
+              key={t.name}
+              custom={idx}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="group relative p-8 rounded-3xl bg-white/[0.025] border border-white/10 hover:border-emerald-500/40 transition-all duration-300 backdrop-blur-xl shadow-xl hover:shadow-2xl flex flex-col justify-between"
+            >
+              <div>
+                {/* Header Rating & Highlight */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex text-amber-400 text-sm">
+                    {"★".repeat(t.rating)}
                   </div>
-
-                  <p className="text-white/80 text-xs md:text-sm leading-relaxed italic">
-                    &ldquo;{testimonial.quote}&rdquo;
-                  </p>
-                </div>
-
-                <div className="mt-6 pt-6 border-t border-white/[0.08] flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20 border border-accent/40 text-accent-light font-bold text-xs">
-                      {testimonial.initials}
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-white">{testimonial.name}</p>
-                      <p className="text-[10px] text-white/40">
-                        {testimonial.role}, <span className="text-white/70">{testimonial.company}</span>
-                      </p>
-                    </div>
-                  </div>
-
-                  <span className="text-[10px] font-mono font-bold text-accent-light bg-accent/15 px-2.5 py-1 rounded-md border border-accent/25">
-                    {testimonial.metric}
+                  <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-950/60 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                    {t.highlight}
                   </span>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
 
-      <StrategyModal
-        isOpen={isStrategyModalOpen}
-        onClose={() => setIsStrategyModalOpen(false)}
-      />
-    </>
+                <p className="text-xs md:text-sm text-white/80 font-light leading-relaxed italic">
+                  “{t.quote}”
+                </p>
+              </div>
+
+              <div className="mt-6 pt-5 border-t border-white/[0.06] flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xl shrink-0">
+                  {t.avatar}
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-white flex items-center gap-1.5">
+                    {t.name} <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                  </h4>
+                  <p className="text-[11px] text-emerald-400 font-medium">{t.role}</p>
+                  <p className="text-[10px] text-white/40">{t.restaurant}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

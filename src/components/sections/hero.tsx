@@ -2,36 +2,77 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, Play, Sparkles, Cpu, Bot, Zap, Database, MessageSquare, ShieldCheck } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ArrowRight,
+  Play,
+  Sparkles,
+  Star,
+  MessageCircle,
+  TrendingUp,
+  Award,
+  Users,
+  Gift,
+  CheckCircle2,
+  X,
+  ExternalLink,
+  Shield,
+  Zap,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-import { RoiCalculator } from "@/components/ui/roi-calculator";
 import { StrategyModal } from "@/components/ui/strategy-modal";
 import { fadeUp } from "@/lib/animations";
 
-const stats = [
-  { value: 40, suffix: "+", label: "Enterprise Systems Deployed" },
-  { value: 98, suffix: "%", label: "Client Retention Rate" },
-  { value: 3.4, suffix: "x", label: "Average Measured ROI" },
-  { value: 12, suffix: "M+", label: "Reclaimed Operational Capital" },
+const heroStats = [
+  { value: 4.9, suffix: "★", label: "Average Google Rating Lift" },
+  { value: 3.8, suffix: "x", label: "More 5-Star Reviews" },
+  { value: 84, suffix: "%", label: "Coupon Redemption Rate" },
+  { value: 2.4, suffix: "M+", label: "WhatsApp Follow-ups Sent" },
+];
+
+const mockNotifications = [
+  {
+    name: "La Trattoria Bistro",
+    time: "2 mins ago",
+    action: "New 5-Star Google Review",
+    rating: 5,
+    text: "“Best pasta in town! Service was super fast and friendly.”",
+    avatar: "🍝",
+  },
+  {
+    name: "Burger & Co. Lounge",
+    time: "5 mins ago",
+    action: "Coupon Redeemed",
+    reward: "Free Dessert on Next Visit",
+    text: "Customer returned after 6 days via WhatsApp reminder!",
+    avatar: "🍔",
+  },
+  {
+    name: "Matcha & Co. Cafe",
+    time: " Just now",
+    action: "WhatsApp Feedback Collected",
+    rating: 5,
+    text: "“Loved the iced matcha oat latte! Will definitely return.”",
+    avatar: "🍵",
+  },
 ];
 
 export function Hero() {
-  const [isStrategyModalOpen, setIsStrategyModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<"overview" | "calculator">("overview");
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   return (
     <>
-      <section className="relative min-h-[100vh] flex flex-col items-center overflow-hidden pt-28 md:pt-36 pb-24 noise">
+      <section className="relative min-h-[100vh] flex flex-col items-center overflow-hidden pt-32 md:pt-40 pb-24 noise">
         {/* Ambient Glowing Orbs Background */}
-        <div className="absolute inset-0 grid-bg opacity-50 pointer-events-none" />
+        <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" />
         <div className="absolute inset-0 mesh-gradient pointer-events-none" />
-        
+
         {/* Floating Light Orbs */}
-        <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[1000px] h-[650px] bg-gradient-to-tr from-accent/20 via-purple-600/10 to-cyan-500/10 rounded-full blur-[200px] opacity-70 pointer-events-none animate-pulse-slow" />
-        <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-accent/15 rounded-full blur-[180px] opacity-40 pointer-events-none animate-float-slow" />
-        <div className="absolute top-1/3 -right-20 w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[180px] opacity-40 pointer-events-none animate-float-slow" />
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[1100px] h-[600px] bg-gradient-to-tr from-emerald-500/20 via-accent/15 to-cyan-500/10 rounded-full blur-[200px] opacity-75 pointer-events-none animate-pulse-slow" />
+        <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-emerald-500/15 rounded-full blur-[180px] opacity-50 pointer-events-none animate-float-slow" />
+        <div className="absolute top-1/3 -right-20 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[180px] opacity-40 pointer-events-none animate-float-slow" />
 
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-7xl mx-auto">
           {/* Tagline Badge */}
@@ -43,10 +84,12 @@ export function Hero() {
           >
             <div className="inline-flex items-center gap-3 rounded-full bg-white/[0.03] backdrop-blur-xl px-5 py-2.5 text-xs font-semibold text-white/90 border border-white/15 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
               <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-light opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-light" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
               </span>
-              <span className="tracking-wide">Enterprise Autonomous AI Systems — Silicon Valley Architecture</span>
+              <span className="tracking-wide">
+                The #1 Customer Retention Platform for Restaurants & Hospitality
+              </span>
             </div>
           </motion.div>
 
@@ -56,23 +99,23 @@ export function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-[6.25rem] font-extrabold tracking-[-0.04em] text-white leading-[1.03] max-w-6xl drop-shadow-[0_15px_45px_rgba(0,0,0,0.9)]"
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-extrabold tracking-[-0.04em] text-white leading-[1.05] max-w-5xl drop-shadow-[0_15px_45px_rgba(0,0,0,0.9)]"
           >
-            AI Systems Engineering <br className="hidden sm:block" /> That Helps{" "}
-            <span className="gradient-text drop-shadow-[0_10px_35px_rgba(124,58,237,0.4)]">
-              Businesses Scale 10x.
+            Every Happy Customer Deserves to Become Your Next{" "}
+            <span className="gradient-text-amber drop-shadow-[0_10px_35px_rgba(245,158,11,0.35)]">
+              5-Star Review.
             </span>
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Subheadline */}
           <motion.p
             custom={1}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mt-8 text-lg sm:text-xl md:text-2xl text-white/60 max-w-3xl leading-relaxed font-light"
+            className="mt-8 text-lg sm:text-xl md:text-2xl text-white/65 max-w-3xl leading-relaxed font-light"
           >
-            We architect, build, and deploy production-grade AI systems — from sales velocity engines and WhatsApp intelligence to custom CRM agents. Eliminate operational manual work without expanding headcount.
+            Automatically follow up with customers on WhatsApp, collect feedback, increase Google reviews, reward loyalty, and bring customers back—all from one platform.
           </motion.p>
 
           {/* Call to Action Buttons */}
@@ -81,173 +124,276 @@ export function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mt-12 flex flex-col sm:flex-row items-center gap-5"
+            className="mt-12 flex flex-col sm:flex-row items-center gap-4 flex-wrap justify-center"
           >
             <Button
-              onClick={() => setIsStrategyModalOpen(true)}
+              onClick={() => setIsDemoModalOpen(true)}
               size="lg"
-              className="bg-accent hover:bg-accent-light text-white font-bold text-base h-14 px-9 rounded-2xl shadow-[0_0_40px_rgba(124,58,237,0.5)] group/btn"
+              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold text-base h-14 px-8 rounded-2xl shadow-[0_0_40px_rgba(16,185,129,0.4)] group/btn"
             >
-              <Sparkles className="h-5 w-5 text-accent-light" />
-              Book a Free Strategy Session
+              <Sparkles className="h-5 w-5 text-emerald-200" />
+              Book Demo
               <ArrowRight className="h-5 w-5 transition-transform group-hover/btn:translate-x-1.5" />
             </Button>
+
             <Button
-              asChild
+              onClick={() => setIsDemoModalOpen(true)}
+              size="lg"
+              className="bg-accent hover:bg-accent-light text-white font-bold text-base h-14 px-8 rounded-2xl shadow-[0_0_35px_rgba(124,58,237,0.4)]"
+            >
+              <Zap className="h-5 w-5 text-purple-200" />
+              Start Free Trial
+            </Button>
+
+            <Button
+              onClick={() => setIsVideoOpen(true)}
               variant="outline"
               size="lg"
-              className="h-14 px-9 text-base font-semibold border-white/20 bg-white/[0.03] hover:bg-white/[0.08] text-white rounded-2xl backdrop-blur-xl"
+              className="h-14 px-7 text-base font-semibold border-white/20 bg-white/[0.04] hover:bg-white/[0.1] text-white rounded-2xl backdrop-blur-xl"
             >
-              <Link href="#solutions">
-                <Play className="h-4 w-4 fill-current text-accent-light" />
-                Explore Platform Architecture
-              </Link>
+              <Play className="h-4 w-4 fill-emerald-400 text-emerald-400" />
+              Watch Demo (2 mins)
             </Button>
           </motion.div>
 
-          {/* Stats Row */}
+          {/* Social Proof Pills */}
           <motion.div
             custom={3}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mt-20 flex items-center justify-center gap-10 md:gap-16 flex-wrap"
+            className="mt-8 flex items-center justify-center gap-6 text-xs text-white/50 font-medium"
           >
-            {stats.map((stat, i) => (
-              <div key={stat.label} className="flex items-center gap-10 md:gap-16">
-                {i > 0 && <div className="hidden sm:block h-12 w-px bg-white/[0.1]" />}
-                <div className="text-center sm:text-left">
-                  <p className="text-3xl md:text-4xl font-extrabold tracking-tight text-white font-mono drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                  </p>
-                  <p className="mt-1.5 text-xs text-white/45 font-medium tracking-wide">{stat.label}</p>
-                </div>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> No credit card required
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> 5-minute easy setup
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> WhatsApp Official API
+            </span>
+          </motion.div>
+
+          {/* Stats Banner */}
+          <motion.div
+            custom={4}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 w-full max-w-5xl p-6 md:p-8 rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-2xl shadow-2xl"
+          >
+            {heroStats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-3xl md:text-4xl font-black tracking-tight text-white font-mono drop-shadow-md">
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                </p>
+                <p className="mt-1.5 text-xs text-white/50 font-medium tracking-wide">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </motion.div>
         </div>
 
-        {/* View Switcher: Interactive Workflow vs Live ROI Calculator */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 mt-20">
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="p-1.5 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-2xl flex gap-2">
-              <button
-                onClick={() => setActiveTab("overview")}
-                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 ${
-                  activeTab === "overview"
-                    ? "bg-accent text-white shadow-[0_4px_20px_rgba(124,58,237,0.4)]"
-                    : "text-white/50 hover:text-white"
-                }`}
-              >
-                Live Multi-Agent Pipeline Flow
-              </button>
-              <button
-                onClick={() => setActiveTab("calculator")}
-                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 ${
-                  activeTab === "calculator"
-                    ? "bg-accent text-white shadow-[0_4px_20px_rgba(124,58,237,0.4)]"
-                    : "text-white/50 hover:text-white"
-                }`}
-              >
-                Interactive ROI Calculator 🧮
-              </button>
-            </div>
-          </div>
+        {/* Animated Dashboard Mockup Showcase */}
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 md:px-6 mt-16 perspective-container">
+          <motion.div
+            initial={{ opacity: 0, y: 50, rotateX: 6 }}
+            animate={{ opacity: 1, y: 0, rotateX: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="relative rounded-3xl border border-white/20 bg-gradient-to-b from-white/[0.08] via-white/[0.02] to-background backdrop-blur-2xl p-4 md:p-8 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.95),0_0_80px_rgba(16,185,129,0.15)]"
+          >
+            {/* Specular Edge Accent */}
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent" />
 
-          {activeTab === "overview" ? (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="relative rounded-3xl border border-white/20 bg-gradient-to-b from-white/[0.04] to-white/[0.005] backdrop-blur-2xl p-8 md:p-10 shadow-[0_30px_100px_-20px_rgba(0,0,0,0.9),0_0_60px_rgba(124,58,237,0.2),inset_0_1px_0_0_rgba(255,255,255,0.2)] overflow-hidden"
-            >
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-light/60 to-transparent" />
-
-              <div className="flex items-center justify-between border-b border-white/10 pb-5 mb-8">
-                <div className="flex items-center gap-3">
-                  <Cpu className="h-5 w-5 text-accent-light" />
-                  <span className="text-xs font-bold text-white tracking-widest uppercase">
-                    LOOMIS Autonomous Multi-Agent Pipeline Architecture
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/25">
+            {/* Window Header */}
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6 px-2">
+              <div className="flex items-center gap-2">
+                <span className="h-3 w-3 rounded-full bg-rose-500/80" />
+                <span className="h-3 w-3 rounded-full bg-amber-500/80" />
+                <span className="h-3 w-3 rounded-full bg-emerald-500/80" />
+                <span className="ml-3 text-xs font-mono text-white/40 hidden sm:inline">
+                  app.loomisreviews.com/dashboard/analytics
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
                   <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-                  Telemetry Stream Active (Latency: 340ms)
+                  Live WhatsApp Bot Syncing
+                </span>
+              </div>
+            </div>
+
+            {/* Dashboard UI Frame */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              {/* Left Sidebar Mock */}
+              <div className="lg:col-span-3 space-y-3 hidden lg:block border-r border-white/10 pr-4">
+                <div className="p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-white font-bold text-xs flex items-center justify-between">
+                  <span className="flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4 text-emerald-400" /> Dashboard
+                  </span>
+                  <span className="text-[10px] bg-emerald-500 text-black px-1.5 py-0.5 rounded font-mono">Live</span>
+                </div>
+                {["Customers Timeline", "Campaign Builder", "Google Reviews", "Coupon Engine", "WhatsApp Inbox", "Analytics"].map((item, idx) => (
+                  <div
+                    key={item}
+                    className={`p-3 rounded-xl text-xs font-medium text-white/50 hover:text-white hover:bg-white/5 transition-all flex items-center justify-between cursor-pointer ${
+                      idx === 2 ? "text-white bg-white/[0.04] border border-white/10" : ""
+                    }`}
+                  >
+                    <span>{item}</span>
+                    {idx === 2 && <span className="h-2 w-2 rounded-full bg-emerald-400" />}
+                  </div>
+                ))}
+              </div>
+
+              {/* Central Main Analytics */}
+              <div className="lg:col-span-6 space-y-6">
+                {/* Metric Cards Grid */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+                    <p className="text-[11px] font-semibold text-white/50 uppercase tracking-wider">New 5-Star Reviews</p>
+                    <p className="text-2xl md:text-3xl font-bold text-white mt-1 font-mono flex items-center gap-2">
+                      +148 <span className="text-xs font-normal text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">+42%</span>
+                    </p>
+                    <p className="text-[10px] text-white/40 mt-1">This month on Google Maps</p>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+                    <p className="text-[11px] font-semibold text-white/50 uppercase tracking-wider">Repeat Customer Visits</p>
+                    <p className="text-2xl md:text-3xl font-bold text-white mt-1 font-mono flex items-center gap-2">
+                      612 <span className="text-xs font-normal text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded-full border border-purple-500/20">+38%</span>
+                    </p>
+                    <p className="text-[10px] text-white/40 mt-1">Coupons redeemed at POS</p>
+                  </div>
+                </div>
+
+                {/* Live Activity Feed */}
+                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-3">
+                  <div className="flex items-center justify-between text-xs font-bold text-white mb-2">
+                    <span className="flex items-center gap-2">
+                      <MessageCircle className="h-4 w-4 text-emerald-400" /> Live Customer Automation Stream
+                    </span>
+                    <span className="text-[10px] font-mono text-emerald-400">Real-time</span>
+                  </div>
+
+                  {mockNotifications.map((notif, i) => (
+                    <div
+                      key={i}
+                      className="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-start gap-3 hover:border-emerald-500/40 transition-colors"
+                    >
+                      <div className="h-9 w-9 rounded-xl bg-white/10 flex items-center justify-center text-lg shrink-0">
+                        {notif.avatar}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between">
+                          <p className="text-xs font-bold text-white truncate">{notif.name}</p>
+                          <span className="text-[10px] font-mono text-white/40">{notif.time}</span>
+                        </div>
+                        <p className="text-[11px] font-semibold text-emerald-400 mt-0.5 flex items-center gap-1">
+                          {notif.action}
+                          {notif.rating && (
+                            <span className="text-amber-400 flex items-center">
+                              {"★".repeat(notif.rating)}
+                            </span>
+                          )}
+                        </p>
+                        <p className="text-xs text-white/70 italic mt-1">{notif.text}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Node Architecture Diagram */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-center relative">
-                {/* Node 1 */}
-                <div className="p-5 rounded-2xl border border-white/15 bg-white/[0.03] space-y-3 relative group hover:border-cyan-400/50 transition-all duration-300 shadow-lg">
-                  <div className="flex items-center justify-between text-xs text-white/50">
-                    <span className="font-mono text-[10px] uppercase">Input Stream</span>
-                    <Database className="h-4 w-4 text-cyan-400" />
+              {/* Right Floating Summary Cards */}
+              <div className="lg:col-span-3 space-y-4">
+                <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/40 via-emerald-900/10 to-background border border-emerald-500/30 space-y-3 shadow-lg">
+                  <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+                    <Award className="h-4 w-4" /> Google Rating Boost
                   </div>
-                  <p className="text-base font-bold text-white">Inbound Lead / Webhook</p>
-                  <p className="text-xs text-white/45">WhatsApp, CRM, Email, Web Forms</p>
-                  <div className="text-[10px] font-mono text-cyan-400 bg-cyan-950/60 p-2 rounded-lg border border-cyan-500/30">
-                    &gt; Trigger: Lead Enters Pipeline
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl font-extrabold text-white font-mono">4.9</span>
+                    <div className="flex text-amber-400 text-sm">★★★★★</div>
                   </div>
-                </div>
-
-                {/* Node 2 */}
-                <div className="p-5 rounded-2xl border border-accent/50 bg-accent/15 space-y-3 relative shadow-[0_10px_30px_rgba(124,58,237,0.3)] group hover:border-accent-light transition-all duration-300">
-                  <div className="flex items-center justify-between text-xs text-accent-light font-bold">
-                    <span className="font-mono text-[10px] uppercase">AI Reasoning Layer</span>
-                    <Bot className="h-4 w-4 text-accent-light" />
-                  </div>
-                  <p className="text-base font-bold text-white">Lead Qualification Agent</p>
-                  <p className="text-xs text-white/60">Extract Intent & RAG Profile Match</p>
-                  <div className="text-[10px] font-mono text-accent-light bg-accent/30 p-2 rounded-lg border border-accent/40 font-bold">
-                    &gt; Confidence: 99.4% ICP Match
+                  <p className="text-xs text-white/60 leading-relaxed">
+                    Up from 3.9★ within 30 days of automated WhatsApp follow-ups.
+                  </p>
+                  <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                    <div className="bg-gradient-to-r from-amber-400 to-emerald-400 h-full w-[94%]" />
                   </div>
                 </div>
 
-                {/* Node 3 */}
-                <div className="p-5 rounded-2xl border border-white/15 bg-white/[0.03] space-y-3 relative group hover:border-amber-400/50 transition-all duration-300 shadow-lg">
-                  <div className="flex items-center justify-between text-xs text-white/50">
-                    <span className="font-mono text-[10px] uppercase">Execution Engine</span>
-                    <Zap className="h-4 w-4 text-amber-400" />
+                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-3">
+                  <div className="flex items-center gap-2 text-purple-300 font-bold text-xs uppercase tracking-wider">
+                    <Gift className="h-4 w-4" /> Active Loyalty Offers
                   </div>
-                  <p className="text-base font-bold text-white">Automated Booking & Action</p>
-                  <p className="text-xs text-white/45">Schedule Call, Update CRM Deal</p>
-                  <div className="text-[10px] font-mono text-amber-400 bg-amber-950/60 p-2 rounded-lg border border-amber-500/30">
-                    &gt; Latency: 420ms
+                  <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20">
+                    <p className="text-xs font-bold text-white">15% Off Next Dinner Visit</p>
+                    <p className="text-[10px] text-white/50 mt-0.5">342 Claimed • 289 Redeemed</p>
                   </div>
-                </div>
-
-                {/* Node 4 */}
-                <div className="p-5 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 space-y-3 relative shadow-[0_10px_30px_rgba(16,185,129,0.2)]">
-                  <div className="flex items-center justify-between text-xs text-emerald-400 font-bold">
-                    <span className="font-mono text-[10px] uppercase">Verified Business Impact</span>
-                    <MessageSquare className="h-4 w-4 text-emerald-400" />
-                  </div>
-                  <p className="text-base font-bold text-white">3.4x Conversion Lift</p>
-                  <p className="text-xs text-white/45">Zero manual operational overhead</p>
-                  <div className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 p-2 rounded-lg border border-emerald-500/30 font-bold">
-                    &gt; ROI: +340% Lift
+                  <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                    <p className="text-xs font-bold text-white">Free Starter with Entree</p>
+                    <p className="text-[10px] text-white/50 mt-0.5">188 Claimed • 164 Redeemed</p>
                   </div>
                 </div>
               </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <RoiCalculator onOpenModal={() => setIsStrategyModalOpen(true)} />
-            </motion.div>
-          )}
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Strategy Session Modal */}
+      {/* Demo Booking Modal */}
       <StrategyModal
-        isOpen={isStrategyModalOpen}
-        onClose={() => setIsStrategyModalOpen(false)}
+        isOpen={isDemoModalOpen}
+        onClose={() => setIsDemoModalOpen(false)}
       />
+
+      {/* Video Modal Placeholder */}
+      <AnimatePresence>
+        {isVideoOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/90 backdrop-blur-md"
+              onClick={() => setIsVideoOpen(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative w-full max-w-4xl rounded-3xl border border-white/20 bg-neutral-950 p-6 shadow-2xl z-10 overflow-hidden"
+            >
+              <button
+                onClick={() => setIsVideoOpen(false)}
+                className="absolute top-4 right-4 text-white/60 hover:text-white p-2 rounded-xl bg-white/10"
+              >
+                <X className="h-6 w-6" />
+              </button>
+              <div className="aspect-video w-full rounded-2xl bg-neutral-900 border border-white/10 flex flex-col items-center justify-center text-center p-8 space-y-4">
+                <div className="h-16 w-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                  <Play className="h-8 w-8 fill-current ml-1" />
+                </div>
+                <h3 className="text-xl font-bold text-white">Loomis Reviews Platform Demo Walkthrough</h3>
+                <p className="text-xs text-white/60 max-w-md">
+                  Discover how Loomis Reviews connects your POS to WhatsApp follow-ups, shields negative reviews, and drives repeat visits automatically.
+                </p>
+                <Button
+                  onClick={() => {
+                    setIsVideoOpen(false);
+                    setIsDemoModalOpen(true);
+                  }}
+                  className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-xs h-11 px-6 rounded-xl"
+                >
+                  Book Interactive 1-on-1 Demo Instead
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

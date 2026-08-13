@@ -25,31 +25,32 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "LOOMIS — Autonomous AI Engineering for Enterprise Scale",
+  title: "Loomis Reviews — Restaurant Review Automation & WhatsApp Loyalty Platform",
   description:
-    "LOOMIS designs, builds, and deploys production-grade AI systems — from sales velocity and CRM sync to 24/7 voice receptionists and WhatsApp automation.",
+    "Turn every happy restaurant customer into a 5-star Google review and a repeat visitor. Automate WhatsApp follow-ups, feedback, coupons, and customer loyalty automatically.",
   keywords: [
-    "AI automation",
-    "Enterprise AI engineering",
-    "AI sales systems",
-    "CRM automation",
-    "WhatsApp AI bots",
-    "Voice AI receptionist",
-    "Multi-agent workflows",
+    "Restaurant Review Automation",
+    "WhatsApp Review Software",
+    "Restaurant Loyalty Platform",
+    "Google Review Automation",
+    "Customer Retention Software",
+    "WhatsApp Customer Engagement",
+    "Restaurant Marketing Software",
+    "Google Maps Reviews for Restaurants",
   ],
   openGraph: {
-    title: "LOOMIS — Autonomous AI Engineering for Enterprise Scale",
+    title: "Loomis Reviews — Turn Every Happy Customer into a 5-Star Review",
     description:
-      "We architect and deploy production-grade AI systems that eliminate operational bottlenecks and scale revenue 10x.",
+      "Automatically follow up with customers on WhatsApp, collect feedback, increase Google reviews, reward loyalty, and bring customers back—all from one platform.",
     type: "website",
     locale: "en_US",
-    siteName: "LOOMIS AI",
+    siteName: "Loomis Reviews",
   },
   twitter: {
     card: "summary_large_image",
-    title: "LOOMIS — Autonomous AI Engineering for Enterprise Scale",
+    title: "Loomis Reviews — Restaurant Customer Retention Platform",
     description:
-      "We architect and deploy production-grade AI systems that eliminate operational bottlenecks and scale revenue 10x.",
+      "Automate reviews, increase repeat customers, and build customer loyalty effortlessly on WhatsApp.",
   },
   robots: {
     index: true,
