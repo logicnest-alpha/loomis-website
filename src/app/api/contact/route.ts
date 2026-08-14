@@ -6,17 +6,35 @@ const DESTINATION_EMAIL = "vishalchepyala@gmail.com";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, company, phone, selectedGoal, selectedDate, selectedTime, formType } = body;
+    const {
+      name,
+      email,
+      company,
+      restaurantName,
+      phone,
+      country,
+      reason,
+      message,
+      selectedGoal,
+      selectedDate,
+      selectedTime,
+      formType,
+    } = body;
+
+    const targetCompany = restaurantName || company || "N/A";
+    const targetReason = reason || selectedGoal || "General Inquiry";
 
     console.log("📥 New Lead Form Submission:", {
       name,
       email,
-      company,
+      restaurantName: targetCompany,
       phone,
-      goal: selectedGoal,
+      country: country || "N/A",
+      reason: targetReason,
+      message: message || "N/A",
       date: selectedDate,
       time: selectedTime,
-      formType: formType || "Strategy Session Booking",
+      formType: formType || "Website Contact Form",
       timestamp: new Date().toISOString(),
     });
 
@@ -29,14 +47,17 @@ export async function POST(request: Request) {
         const makePayload = {
           name: name || "",
           email: email || "",
-          company: company || "",
+          restaurantName: targetCompany,
           phone: phone || "",
-          selectedGoal: selectedGoal || "",
+          country: country || "",
+          reason: targetReason,
+          message: message || "",
+          selectedGoal: targetReason,
           selectedDate: selectedDate || "",
           selectedTime: selectedTime || "",
-          formType: formType || "30-Min Strategy Call Booking",
+          formType: formType || "Website Contact Form",
           submittedAt: new Date().toISOString(),
-          source: "LOOMIS AI Website",
+          source: "Loomis Reviews Website",
         };
 
         const makeResponse = await fetch(makeWebhookUrl, {
@@ -77,33 +98,49 @@ export async function POST(request: Request) {
           
           <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
             <tr style="border-bottom: 1px solid #333;">
-              <td style="padding: 10px; font-weight: bold; color: #a78bfa; width: 140px;">Form Type:</td>
-              <td style="padding: 10px; color: #fff;">${formType || "30-Min Strategy Call Booking"}</td>
+              <td style="padding: 10px; font-weight: bold; color: #10b981; width: 140px;">Form Type:</td>
+              <td style="padding: 10px; color: #fff;">${formType || "Website Contact Form"}</td>
             </tr>
             <tr style="border-bottom: 1px solid #333;">
-              <td style="padding: 10px; font-weight: bold; color: #a78bfa;">Full Name:</td>
+              <td style="padding: 10px; font-weight: bold; color: #10b981;">Full Name:</td>
               <td style="padding: 10px; color: #fff;">${name || "N/A"}</td>
             </tr>
             <tr style="border-bottom: 1px solid #333;">
-              <td style="padding: 10px; font-weight: bold; color: #a78bfa;">Email Address:</td>
+              <td style="padding: 10px; font-weight: bold; color: #10b981;">Restaurant / Business:</td>
+              <td style="padding: 10px; color: #fff;">${targetCompany}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #333;">
+              <td style="padding: 10px; font-weight: bold; color: #10b981;">Email Address:</td>
               <td style="padding: 10px; color: #fff;"><a href="mailto:${email}" style="color: #67e8f9;">${email || "N/A"}</a></td>
             </tr>
             <tr style="border-bottom: 1px solid #333;">
-              <td style="padding: 10px; font-weight: bold; color: #a78bfa;">Phone Number:</td>
+              <td style="padding: 10px; font-weight: bold; color: #10b981;">Phone Number:</td>
               <td style="padding: 10px; color: #fff;"><a href="tel:${phone}" style="color: #67e8f9;">${phone || "N/A"}</a></td>
             </tr>
             <tr style="border-bottom: 1px solid #333;">
-              <td style="padding: 10px; font-weight: bold; color: #a78bfa;">Company:</td>
-              <td style="padding: 10px; color: #fff;">${company || "N/A"}</td>
+              <td style="padding: 10px; font-weight: bold; color: #10b981;">Country:</td>
+              <td style="padding: 10px; color: #fff;">${country || "N/A"}</td>
             </tr>
             <tr style="border-bottom: 1px solid #333;">
-              <td style="padding: 10px; font-weight: bold; color: #a78bfa;">Automation Goal:</td>
-              <td style="padding: 10px; color: #fff; font-weight: bold;">${selectedGoal || "N/A"}</td>
+              <td style="padding: 10px; font-weight: bold; color: #10b981;">Inquiry Reason:</td>
+              <td style="padding: 10px; color: #fff; font-weight: bold;">${targetReason}</td>
             </tr>
-            <tr style="border-bottom: 1px solid #333;">
-              <td style="padding: 10px; font-weight: bold; color: #a78bfa;">Target Booking Slot:</td>
-              <td style="padding: 10px; color: #10b981; font-weight: bold;">${selectedDate || "N/A"} at ${selectedTime || "N/A"}</td>
-            </tr>
+            ${
+              message
+                ? `<tr style="border-bottom: 1px solid #333;">
+              <td style="padding: 10px; font-weight: bold; color: #10b981;">Message:</td>
+              <td style="padding: 10px; color: #fff; white-space: pre-wrap;">${message}</td>
+            </tr>`
+                : ""
+            }
+            ${
+              selectedDate
+                ? `<tr style="border-bottom: 1px solid #333;">
+              <td style="padding: 10px; font-weight: bold; color: #10b981;">Target Booking Slot:</td>
+              <td style="padding: 10px; color: #10b981; font-weight: bold;">${selectedDate} at ${selectedTime || "N/A"}</td>
+            </tr>`
+                : ""
+            }
           </table>
 
           <div style="margin-top: 25px; padding: 15px; background-color: #121217; border-radius: 8px; font-size: 12px; color: #a3a3a3;">

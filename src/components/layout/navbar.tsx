@@ -10,13 +10,12 @@ import { StrategyModal } from "@/components/ui/strategy-modal";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { label: "Problem", href: "#problem" },
-  { label: "Solution", href: "#solution" },
-  { label: "Features", href: "#features" },
-  { label: "Showcase", href: "#showcase" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Features", href: "/#features" },
+  { label: "Showcase", href: "/#showcase" },
+  { label: "How It Works", href: "/#how-it-works" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Contact", href: "/contact" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 export function Navbar() {

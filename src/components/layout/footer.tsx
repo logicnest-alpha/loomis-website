@@ -6,36 +6,36 @@ import { Star, Heart, ArrowUpRight, MessageCircle } from "lucide-react";
 
 const footerNavigation = {
   product: [
-    { name: "Review Automation", href: "#features" },
-    { name: "WhatsApp Automation", href: "#features" },
-    { name: "Coupon Engine", href: "#features" },
-    { name: "Customer Timeline", href: "#features" },
-    { name: "Analytics Dashboard", href: "#showcase" },
-    { name: "Campaign Builder", href: "#features" },
-    { name: "Pricing Plans", href: "#pricing" },
+    { name: "Review Automation", href: "/#features" },
+    { name: "WhatsApp Automation", href: "/#features" },
+    { name: "Coupon Engine", href: "/#features" },
+    { name: "Customer Timeline", href: "/#features" },
+    { name: "Analytics Dashboard", href: "/#showcase" },
+    { name: "Campaign Builder", href: "/#features" },
+    { name: "Pricing Plans", href: "/pricing" },
   ],
   solutions: [
-    { name: "Restaurants & Bistros", href: "#" },
-    { name: "Multi-Location Chains", href: "#" },
-    { name: "Cafes & Bakeries", href: "#" },
-    { name: "Cloud Kitchens", href: "#" },
-    { name: "Fast Food Brands", href: "#" },
-    { name: "Future: Salons & Gyms", href: "#" },
-    { name: "Future: Clinics & Retail", href: "#" },
+    { name: "Restaurants & Bistros", href: "/contact" },
+    { name: "Multi-Location Chains", href: "/pricing" },
+    { name: "Cafes & Bakeries", href: "/contact" },
+    { name: "Cloud Kitchens", href: "/contact" },
+    { name: "Fast Food Brands", href: "/contact" },
+    { name: "Future: Salons & Gyms", href: "/contact" },
+    { name: "Future: Clinics & Retail", href: "/contact" },
   ],
   resources: [
-    { name: "Documentation", href: "#" },
-    { name: "POS Integration Guide", href: "#" },
-    { name: "Meta WhatsApp API Setup", href: "#" },
-    { name: "Google Review Playbook", href: "#" },
-    { name: "API Reference", href: "#" },
+    { name: "Contact Team", href: "/contact" },
+    { name: "POS Integration Guide", href: "/contact" },
+    { name: "Meta WhatsApp API Setup", href: "/contact" },
+    { name: "Google Review Playbook", href: "/pricing" },
+    { name: "API Reference", href: "/pricing" },
   ],
   company: [
-    { name: "About Loomis Reviews", href: "#" },
-    { name: "Contact Support", href: "mailto:support@loomisreviews.com" },
-    { name: "Privacy Policy", href: "#" },
-    { name: "Terms of Service", href: "#" },
-    { name: "System Status", href: "#" },
+    { name: "About Loomis Reviews", href: "/" },
+    { name: "Contact Support", href: "/contact" },
+    { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms of Service", href: "/terms" },
+    { name: "System Status", href: "/contact" },
   ],
 };
 
@@ -115,10 +115,10 @@ export function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 gap-4">
           <p>© {new Date().getFullYear()} Loomis Reviews SaaS Platform. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="#" className="hover:text-white transition-colors">Documentation</Link>
-            <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
-            <Link href="#" className="hover:text-white transition-colors">Pricing</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact Support</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/pricing" className="hover:text-white transition-colors">Pricing Plans</Link>
           </div>
         </div>
       </div>
